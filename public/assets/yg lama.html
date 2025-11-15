@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UMKMYU - Direktori UMKM Indramayu</title>
+    <link rel="icon" type="image/svg" href="images/head-logo.svg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        anton: ['Anton', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        orange: '#EF4400',
+                    },
+                    backgroundImage: {
+                        'gradient-api': 'linear-gradient(to right, #E60F00, #F46100)',
+                    },
+                },
+            },
+        };
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hilangkan scrollbar di semua browser */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body id="beranda" class="bg-white px-8">
+
+    <!-- ====== NAVBAR SAJA (Responsive + Sticky) ====== -->
+    <header class="sticky top-0 z-40  bg-white/80 backdrop-blur">
+        <nav class="container mx-auto flex items-center justify-between py-4" aria-label="Navigasi utama">
+            <!-- Logo & Tombol Burger (Mobile) -->
+            <div class="flex items-center gap-3 justify-start">
+                <!-- Tombol Burger (Mobile) -->
+                <button id="menuBtn"
+                    class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300"
+                    aria-expanded="false" aria-controls="mobileMenu" aria-label="Buka menu">
+                    <!-- Tombol burger (garis tiga) -->
+                    <svg id="burgerIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+
+                    <!-- Tombol silang (tanda close) - tersembunyi saat menu tertutup -->
+                    <svg id="closeIcon" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Logo UMKMYU -->
+                <a href="#beranda" class="flex items-center gap-3" aria-label="Beranda UMKMYU">
+                    <img src="images/logo.svg" alt="Logo UMKMYU" class="h-9 w-auto" />
+                </a>
+            </div>
+
+            <!-- Menu Desktop -->
+            <ul class="hidden items-center gap-6 md:flex">
+                <li><a href="#beranda"
+                        class="text-[#FF6A00] hover:text-[#FF6A00] font-semibold relative after:content-[''] after:block after:w-0 after:h-1 after:bg-[#FF6A00] after:transition-all after:duration-300 hover:after:w-full">Beranda</a>
+                </li>
+                <li><a href="#menu"
+                        class="text-[#FF6A00] hover:text-[#FF6A00] font-semibold relative after:content-[''] after:block after:w-0 after:h-1 after:bg-[#FF6A00] after:transition-all after:duration-300 hover:after:w-full">Menu</a>
+                </li>
+                <li><a href="#kontak"
+                        class="text-[#FF6A00] hover:text-[#FF6A00] font-semibold relative after:content-[''] after:block after:w-0 after:h-1 after:bg-[#FF6A00] after:transition-all after:duration-300 hover:after:w-full">Kontak
+                        Kami</a>
+                </li>
+            </ul>
+
+            <!-- Tombol Search & Lokasi Saya (Desktop) -->
+            <div class="hidden md:flex items-center gap-4">
+                <button
+                    class="inline-flex items-center justify-center rounded-xl bg-[#EF4400] px-4 py-2 text-white shadow-sm hover:bg-[#d73c00] focus:outline-none focus:ring-2 focus:ring-[#EF4400] focus:ring-offset-2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="16" y1="16" x2="20" y2="20"></line>
+                    </svg>
+                </button>
+
+                <!-- Tombol Lokasi Saya -->
+                <div class="relative">
+                    <button id="locationButton"
+                        class="inline-flex items-center rounded-xl bg-[#EF4400] px-4 py-2 text-white shadow-sm hover:bg-[#d73c00] focus:outline-none focus:ring-2 focus:ring-[#EF4400] focus:ring-offset-2">
+                        Lokasi Saya
+                        <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div id="dropdownMenu"
+                        class="dropdown-content absolute hidden bg-white shadow-lg rounded-md mt-2 w-32">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 3</a>
+                    </div>
+                </div>
+
+        </nav>
+
+        <!-- Panel Menu Mobile -->
+        <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white md:hidden">
+            <div class="container mx-auto px-6 py-4">
+                <ul class="grid gap-2" aria-label="Menu mobile">
+                    <li><a href="#beranda" class="block rounded-lg px-3 py-2 hover:bg-slate-50">Beranda</a></li>
+                    <li><a href="#menu" class="block rounded-lg px-3 py-2 hover:bg-slate-50">Menu</a></li>
+                    <li><a href="#kontak" class="block rounded-lg px-3 py-2 hover:bg-slate-50">Kontak Kami</a></li>
+                    <li>
+                        <button id="locationButtonMobile"
+                            class="block rounded-lg px-3 py-2 bg-[#EF4400] text-center font-medium text-white">
+                            Lokasi Saya
+                            <svg class="ml-2 w-4 h-4 inline" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div id="dropdownMenuMobile"
+                            class="dropdown-content hidden bg-white shadow-lg rounded-md mt-2 w-full">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 3</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Tombol Search (Mobile, di luar menu) -->
+        <div
+            class="md:hidden inline-flex items-center justify-center rounded-xl bg-[#EF4400] px-4 py-2 text-white shadow-sm hover:bg-[#d73c00] focus:outline-none focus:ring-2 focus:ring-[#EF4400] focus:ring-offset-2 absolute right-4 top-4 z-10">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="16" y1="16" x2="20" y2="20"></line>
+            </svg>
+        </div>
+
+    </header>
+
+    <!-- ================================ -->
+    <!--           HERO SECTION           -->
+    <!-- ================================ -->
+    <header class="relative bg-[#EF4400] text-white rounded-2xl md:p-24 overflow-hidden -mb-10">
+
+        <!-- Floating Images -->
+        <img src="images/transaksi-umkm.png"
+            class="absolute top-[16%] -left-[1%] w-60 md:w-72 lg:w-96 object-contain z-10" />
+
+        <img src="images/ibu-ibu.png"
+            class="absolute top-[10%] -right-[1%] w-32 md:w-32 lg:w-52 object-contain z-10" />
+
+        <img src="images/barista.png"
+            class="absolute top-[20%] right-[8%] w-72 object-contain z-10" />
+
+        <img src="images/sop.png"
+            class="absolute top-28 left-[24%] hidden md:block w-28 lg:w-28 object-contain" />
+
+        <img src="images/sate.png"
+            class="absolute -top-[8%] left-[32%] hidden md:block w-36 lg:w-42 object-contain" />
+
+        <img src="images/cendol.png"
+            class="absolute top-[75%] left-[32%] hidden md:block w-20 lg:w-28 object-contain" />
+
+        <img src="images/putri-ayu.png"
+            class="absolute top-7 right-[34%] hidden md:block w-28 lg:w-28 object-contain" />
+
+        <img src="images/klepon.png"
+            class="absolute top-32 right-[25%] hidden md:block w-28 lg:w-32 object-contain" />
+
+        <img src="images/sop-buah.png"
+            class="absolute -bottom-[8%] right-[35%] hidden md:block w-28 lg:w-28 object-contain" />
+
+        <img src="images/kochi.png"
+            class="absolute -top-[8%] right-[19%] hidden md:block w-20 lg:w-28 object-contain" />
+
+        <img src="images/logo-bg-putih.png"
+            class="absolute top-16 left-1/2 -translate-x-1/2 w-20 md:w-20 lg:w-24" />
+
+        <!-- Hero Text -->
+        <div class="relative z-20 text-center max-w-3xl mx-auto mt-16 translate-y-4">
+            <h1 class="font-montserrat font-bold text-[2.5rem] md:text-4xl leading-tight">
+                Ketahui UMKM yang ada<br class="hidden md:block"> di sekitar Indramayu
+            </h1>
+
+            <p class="mt-3 text-[0.9rem] opacity-90">
+                Eksplore informasi seputar UMKM Indramayu untuk kebutuhan rencana jajanmu.
+            </p>
+        </div>
+    </header>
+
+    <!-- ================================ -->
+    <!--           SEARCH BAR             -->
+    <!-- ================================ -->
+    <section class="relative max-w-xl mx-auto mt-5 z-30">
+        <div class="bg-white text-gray-500 rounded-xl flex items-center gap-3 px-5 py-3 shadow-xl">
+            <img src="images/search-icon.png" class="w-5 opacity-70" />
+            <input type="text" placeholder="Cari UMKM yang ada Indramayu disini"
+                class="w-full focus:outline-none text-gray-700 text-sm" />
+        </div>
+    </section>
+
+    <!-- New Text with Gradient and Anton Font (Bold) -->
+    <section class="max-w-7xl mx-auto px-6 py-12 text-center">
+        <h2
+            class="text-3xl sm:text-5xl font-[Anton] font-normal text-[#EF4400] mb-6 flex items-center justify-center flex-wrap">
+            <span>SELAMAT DATANG DI UMKM</span>
+            <img src="images/text-icon.svg" alt="Yu" class="h-[1.3em] w-auto object-contain -ml-[0.6em]" />
+        </h2>
+
+        <p class="text-base sm:text-xl text-gray-800 max-w-3xl mx-auto leading-relaxed">
+            Temukan berbagai UMKM lokal terbaik yang siap mendukung ekonomi sekitar Anda. Jelajahi lebih banyak dan
+            bantu mereka berkembang!
+        </p>
+    </section>
+
+    <!-- Filter Section Positioned on the Right -->
+    <section id="menu" class="max-w-7xl mx-auto px-6 py-12 mt-1 pt-1">
+
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8">
+            <div class="flex flex-wrap sm:flex-nowrap space-x-0 sm:space-x-4 gap-4 sm:gap-0">
+                <button
+                    class="flex items-center bg-white text-[#EF4400] px-4 py-2 rounded-full shadow-md hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#EF4400]">
+                    <img src="images/filter-icon.png" alt="Filter Icon" class="w-5 h-5 mr-3">
+                    <span class="font-bold">Filter</span>
+                </button>
+                <div
+                    class="relative flex items-center bg-white px-4 py-2 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-[#EF4400]">
+                    <img src="images/dropdown-icon.png" alt="Dropdown Icon" class="w-5 h-5 mr-3">
+                    <span class="text-gray-700">Jenis UMKM</span>
+                </div>
+                <button
+                    class="bg-white text-[#EF4400] px-4 py-2 rounded-full shadow-md hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#EF4400]">
+                    <span class="font-bold">Terdekat</span>
+                </button>
+                <button
+                    class="bg-white text-[#EF4400] px-4 py-2 rounded-full shadow-md hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#EF4400]">
+                    <span class="font-bold">Terpopuler</span>
+                </button>
+                <button
+                    class="bg-[#EF4400] text-white px-4 py-2 rounded-full shadow-md hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#F46100] mt-4 sm:mt-0 sm:ml-auto flex items-center">
+                    <span class="font-bold text-sm">Lihat Semua UMKM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6l6 6-6 6" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div
+            class="flex flex-nowrap sm:flex-wrap overflow-x-auto pb-4 sm:pb-0 justify-start space-x-4 sm:space-x-8 mb-8 no-scrollbar">
+            <button class="flex flex-col items-center text-[#EF4400] shrink-0">
+                <img src="images/store-icon.png" alt="All UMKM" class="w-12 h-12 mb-2"> <span
+                    class="font-bold">Semua</span>
+            </button>
+            <button class="flex flex-col items-center text-[#EF4400]">
+                <img src="images/food-icon.png" alt="Makanan" class="w-12 h-12 mb-2"> <span
+                    class="font-bold">Makanan</span>
+            </button>
+            <button class="flex flex-col items-center text-[#EF4400]">
+                <img src="images/drink-icon.png" alt="Minuman" class="w-12 h-12 mb-2"> <span
+                    class="font-bold">Minuman</span>
+            </button>
+            <button class="flex flex-col items-center text-[#EF4400]">
+                <img src="images/jasa-icon.png" alt="Jasa" class="w-12 h-12 mb-2"> <span class="font-bold">Jasa</span>
+            </button>
+            <button class="flex flex-col items-center text-[#EF4400]">
+                <img src="images/another-icon.png" alt="Lainnya" class="w-12 h-12 mb-2"> <span
+                    class="font-bold">Lainnya</span>
+            </button>
+        </div>
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-8">
+
+            <div class="bg-white border-2 border-gray-300 rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="relative">
+                    <img src="images/umkm-makanan1.svg" alt="UMKM" class="w-full h-48 object-cover">
+                    <span
+                        class="absolute bottom-2 right-2 bg-[#EF4400] text-white px-2 py-1 text-xs font-bold rounded-full">Makanan</span>
+
+                </div>
+                <div class="p-4 flex flex-col justify-between flex-grow">
+                    <h3 class="text-xl font-normal font-[Anton] text-[#EF4400] mb-2 truncate">
+                        Warung Sate Indramayu
+                    </h3>
+                    <p class="text-gray-700 text-sm mb-4">Nikmati sate lezat khas Indramayu, dibuat dari bahan-bahan
+                        segar dan cita rasa yang otentik.</p>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="flex items-center">
+                            <img src="images/star-icon.png" alt="Rating" class="w-4 h-4 mr-1">
+                            <span class="text-sm text-gray-700">4.5</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <button
+                            class="flex items-center bg-[#EF4400] text-white px-2 py-1 rounded-md hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#F46100]">
+                            <span class="font-bold text-xs">Lihat Detail</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-2" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6l6 6-6 6" />
+                            </svg>
+                        </button>
+                        <div class="flex items-center text-sm text-gray-600 ml-4">
+                            <img src="images/map-icon.png" alt="Location Icon" class="w-3 h-3 mr-2">
+                            <span>1.2 km</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Title -->
+            <h2 class="text-3xl font-normal text-[#EF4400] font-[Anton] mb-8 text-center">Makanan Terdekat</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Makanan 1: Sate -->
+                <div class="bg-white p-4 rounded-lg shadow-lg border-2 border-[#EF4400] flex flex-col">
+                    <div class="relative mb-4">
+                        <img src="images/umkm-makanan1.svg" alt="Warung Sate"
+                            class="w-full h-40 object-cover rounded-md">
+                        <!-- Tag for category -->
+                        <div
+                            class="absolute top-4 right-4 bg-orange-100 text-orange-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
+                            Makanan
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2">Warung Sate</h3>
+                    <p class="text-gray-500 mb-2">Sate Ayam dan Kambing Lezat</p>
+                    <div class="flex items-center text-gray-400 text-sm mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span>500m</span> <!-- Jarak -->
+                    </div>
+                    <!-- Button for "Lihat Detail" -->
+                    <button class="mt-auto bg-[#EF4400] text-white py-2 px-4 rounded-lg w-full">Lihat Detail</button>
+                </div>
+
+                <!-- Makanan 2: Pizza -->
+                <div class="bg-white p-4 rounded-lg shadow-lg border-2 border-[#EF4400] flex flex-col">
+                    <div class="relative mb-4">
+                        <img src="images/umkm-makanan1.svg" alt="Pizza Hut"
+                            class="w-full h-40 object-cover rounded-md">
+                        <!-- Tag for category -->
+                        <div
+                            class="absolute top-4 right-4 bg-orange-100 text-orange-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
+                            Makanan
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2">Pizza Hut</h3>
+                    <p class="text-gray-500 mb-2">Pizza dan Pasta Lezat</p>
+                    <div class="flex items-center text-gray-400 text-sm mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span>1.2km</span>
+                    </div>
+                    <!-- Button for "Lihat Detail" -->
+                    <button class="mt-auto bg-[#EF4400] text-white py-2 px-4 rounded-lg w-full">Lihat Detail</button>
+                </div>
+
+                <!-- Makanan 3: Warung Makan -->
+                <div class="bg-white p-4 rounded-lg shadow-lg border-2 border-[#EF4400] flex flex-col">
+                    <div class="relative mb-4">
+                        <img src="images/umkm-makanan1.svg" alt="Warung Makan"
+                            class="w-full h-40 object-cover rounded-md">
+                        <!-- Tag for category -->
+                        <div
+                            class="absolute top-4 right-4 bg-orange-100 text-orange-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
+                            Makanan
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2">Warung Makan Sederhana</h3>
+                    <p class="text-gray-500 mb-2">Masakan Rumah yang Enak</p>
+                    <div class="flex items-center text-gray-400 text-sm mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span>1.5km</span>
+                    </div>
+                    <!-- Button for "Lihat Detail" -->
+                    <button class="mt-auto bg-[#EF4400] text-white py-2 px-4 rounded-lg w-full">Lihat Detail</button>
+                </div>
+
+                <!-- Makanan 4: Burger -->
+                <div class="bg-white p-4 rounded-lg shadow-lg border-2 border-[#EF4400] flex flex-col">
+                    <div class="relative mb-4">
+                        <img src="images/umkm-makanan1.svg" alt="Burger King"
+                            class="w-full h-40 object-cover rounded-md">
+                        <!-- Tag for category -->
+                        <div
+                            class="absolute top-4 right-4 bg-orange-100 text-orange-600 text-xs font-semibold px-3 py-1 rounded-full z-10">
+                            Makanan
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-normal text-[#EF4400] font-[Anton] mb-2">Burger King</h3>
+                    <p class="text-gray-500 mb-2">Burger, Kentang Goreng, dan Minuman</p>
+                    <div class="flex items-center text-gray-400 text-sm mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="currentColor"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M12 2c4.505.021 7.956 3.809 8 8.174l-.018.001H20c.04 3.38-2.505 7.261-7.322 11.57-.19.17-.434.255-.678.255-.244 0-.488-.085-.679-.256-4.814-4.308-7.359-8.189-7.319-11.568L4 10.175C4.043 5.81 7.495 2.021 12 2Zm0 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span>2km</span>
+                    </div>
+                    <!-- Button for "Lihat Detail" -->
+                    <button class="mt-auto bg-[#EF4400] text-white py-2 px-4 rounded-lg w-full">Lihat Detail</button>
+                </div>
+            </div>
+
+            <!-- Section for Viewing More Makanan -->
+            <div class="text-left mt-8">
+                <a href="#" class="text-orange-500 py-2 px-6 rounded-full text-lg font-semibold flex items-center">
+                    Makanan Terdekat Lainnya
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="relative bg-[#EF4400] text-white rounded-2xl md:p-16 overflow-hidden">
+
+        <!-- Floating Images -->
+        <img src="images/darlung.png"
+            class="absolute bottom-[5%] left-[35%] w-10 md:w-12 lg:w-12 object-contain z-10"/>
+        
+        <img src="images/sop-buah.png"
+            class="absolute bottom-[22%] left-[42%] w-18 md:w-16 lg:w-16 object-contain z-10 -rotate-[20deg]" />
+
+        <img src="images/pukis.png"
+            class="absolute bottom-[5%] left-[49%] w-20 md:w-24 lg:w-24 object-contain z-10" />
+        
+        <img src="images/klepon.png"
+            class="absolute top-[28%] right-[38.5%] w-60 md:w-24 lg:w-24 object-contain z-10" />
+
+        <img src="images/tukang-sayur.png"
+            class="absolute -bottom-[4%] right-[4%] w-60 md:w-60 lg:w-[20%] object-contain z-10" />
+
+        <img src="images/tukang-ikan.png"
+            class="absolute -bottom-[9%] right-[19%] w-60 md:w-60 lg:w-[20%] object-contain z-10" />
+        
+        <img src="images/bg-pattern.png"
+            class="absolute bottom-[0%] right-[0%] hidden md:block w-20 lg:w-[57%] object-contain" />
+        
+        <!-- Hero Text -->
+        <div class="relative z-30 flex flex-col justify-center items-start max-w-4xl mx-[0%] py-0">
+
+            <h1 class="font-montserrat font-bold text-[2rem] md:text-4xl leading-tight">
+                Dukung UMKM Lokal
+            </h1>
+
+            <p class="mt-3 text-[1.4rem] font-medium leading-tight opacity-90">
+                Temukan usaha terbaik di sekitarmu & bantu<br class="hidden md:block">
+                ekonomi lokal berkembang
+            </p>
+
+            <!-- Tombol -->
+            <button class="mt-6 bg-white text-[#EF4400] font-semibold px-5 py-2 rounded-xl flex items-center gap-2 shadow-md">
+                Lihat semua UMKM
+                <span class="text-lg">&gt;</span>
+            </button>
+
+        </div>
+    </section>
+
+    <!-- Section Gabungan untuk "INGIN BERGABUNG DI UMKM?" dan Kontak Kami -->
+    <section id="kontak" class="max-w-7xl mx-auto  mb-2 mt-2 pt-4 pb-4">
+        <!-- Bagian "INGIN BERGABUNG DI UMKM?" di luar box Kontak Kami -->
+        <div class="text-center mb-12">
+            <h3
+                class="text-3xl sm:text-5xl font-[Anton] font-normal text-[#EF4400] mb-4 flex items-center justify-center flex-wrap">
+                <span>INGIN BERGABUNG DI UMKM</span>
+                <img src="images/text-icon.svg" alt="Yu" class="h-[1.3em] w-auto object-contain -ml-[0.6em]" />
+                <span>?</span>
+            </h3>
+            <p class="text-base sm:text-xl mb-6 text-gray-800">
+                Daftarkan UMKM-mu untuk mendapat eksposur dan pelanggan baru.
+            </p>
+        </div>
+
+        <!-- Kontak Kami Section (Form Kontak) -->
+        <div class="bg-white border-2 border-[#EF4400] rounded-xl mb-8">
+            <div class="flex flex-col lg:flex-row items-start px-6 py-12">
+                <!-- Left Section (Deskripsi Kontak) -->
+                <div class="lg:w-1/2 pr-8 mb-8 lg:mb-0 pt-12 lg:pt-24">
+                    <h2 class="text-4xl font-extrabold text-[#EF4400] mb-4">Kontak Kami</h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Punya pertanyaan atau ingin mendaftar sebagai UMKM? Isi form di bawah. Kami siap bantu
+                        promosikan UMKMyu-mu 💡
+                    </p>
+                    <p class="text-sm text-gray-700">
+                        Atau email: <a href="mailto:hello@umkmyu.id" class="text-[#EF4400]">hello@umkmyu.id</a>
+                    </p>
+                </div>
+
+                <!-- Right Section (Form) -->
+                <div class="lg:w-2/5"> <!-- Perkecil lebar form di desktop -->
+                    <form action="#" method="POST" class="grid grid-cols-1 gap-4">
+                        <div class="flex flex-col">
+                            <label for="name" class="text-lg font-medium text-gray-800 mb-2">Nama</label>
+                            <input type="text" id="name" name="name" placeholder="Nama"
+                                class="p-2 border-2 border-[#EF4400] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EF4400] text-gray-700"
+                                required>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="email" class="text-lg font-medium text-gray-800 mb-2">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Email"
+                                class="p-2 border-2 border-[#EF4400] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EF4400] text-gray-700"
+                                required>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="message" class="text-lg font-medium text-gray-800 mb-2">Pesan</label>
+                            <textarea id="message" name="message" placeholder="Pesan"
+                                class="p-2 border-2 border-[#EF4400] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EF4400] text-gray-700"
+                                rows="4" required></textarea>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <button type="reset"
+                                class="px-6 py-2 bg-gray-100 text-[#EF4400] border-2 border-[#EF4400] rounded-lg hover:bg-[#F46100]">Cancel</button>
+                            <button type="submit"
+                                class="px-6 py-2 bg-[#EF4400] text-white border-2 border-[#EF4400] rounded-lg hover:bg-[#F46100] focus:outline-none focus:ring-2 focus:ring-[#F46100]">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gradient-api text-white font-montserrat mt-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-8">
+
+                <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="images/logo-bg-putih.png" alt="Logo Icon" class="h-14 w-14">
+                        <img src="images/tag-logo-footer.png" alt="UMKM Kabupaten Indramayu" class="h-14">
+                    </div>
+                    <p class="text-sm max-w-xl">
+                        Platform direktori terlengkap untuk menemukan dan mendukung usaha kecil menengah lokal di seluruh Indonesia.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 lg:self-center">
+                    <div class="flex sm:items-center gap-1">
+                        <p class="font-anton font-normal leading-tight" style="font-size: 2.5rem;">10</p>
+                        <span>
+                            <p class="font-anton font-normal leading-tight" style="font-size: 1.75rem; margin-bottom: -4px;">UMKM</p>
+                            <p class="font-montserrat font-normal leading-none" style="font-size: 0.65rem;">Terdaftar</p>
+                        </span>
+                    </div>
+                    <div class="flex sm:items-center gap-1">
+                        <p class="font-anton font-normal leading-tight" style="font-size: 2.5rem;">3</p>
+                        <span>
+                            <p class="font-anton font-normal leading-tight" style="font-size: 1.75rem; margin-bottom: -4px;">PROMO</p>
+                            <p class="font-montserrat font-normal leading-none" style="font-size: 0.65rem;">Up to date</p>
+                        </span>
+                    </div>
+                    <div class="flex sm:items-center gap-1">
+                        <p class="font-anton font-normal leading-tight" style="font-size: 2.5rem;">100</p>
+                        <span>
+                            <p class="font-anton font-normal leading-tight" style="font-size: 1.75rem; margin-bottom: -4px;">RATING</p>
+                            <p class="font-montserrat font-normal leading-none" style="font-size: 0.65rem;">Terpercaya</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-6 border-t border-white/40">
+
+            <div class="flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm gap-2">
+                <p class="text-center sm:text-left">
+                    © 2025 Direktori UMKM Lokal Indonesia. All rights reserved.
+                </p>
+                <p class="text-center sm:text-right">
+                    Made with <span class="text-red">♥</span> for UMKM Kabupaten Indramayu
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mendapatkan elemen tombol burger dan ikon
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const burgerIcon = document.getElementById('burgerIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        // Menambahkan event listener untuk toggle menu mobile dan ikon
+        menuBtn?.addEventListener('click', () => {
+            // Toggle menu visibility
+            mobileMenu.classList.toggle('hidden');
+
+            // Toggle ikon burger dan close
+            burgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+
+            // Update aria-expanded untuk aksesibilitas
+            const isMenuOpen = mobileMenu.classList.contains('hidden');
+            menuBtn.setAttribute('aria-expanded', !isMenuOpen);
+        });
+
+
+        // Mendapatkan elemen tombol dan dropdown menu berdasarkan ID
+        const locationButton = document.getElementById('locationButton');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        // Menambahkan event listener untuk membuka/menutup dropdown saat tombol ditekan
+        locationButton?.addEventListener('click', () => {
+            // Toggle visibility dari dropdown menu
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Mendapatkan tombol "Lokasi Saya" dan dropdown menu mobile
+        const locationButtonMobile = document.getElementById('locationButtonMobile');
+        const dropdownMenuMobile = document.getElementById('dropdownMenuMobile');
+
+        // Menambahkan event listener untuk membuka/menutup dropdown saat tombol ditekan di mobile
+        locationButtonMobile?.addEventListener('click', () => {
+            // Toggle visibility dari dropdown menu mobile
+            dropdownMenuMobile.classList.toggle('hidden');
+        });
+
+        // Mendapatkan semua elemen navbar
+        const navLinks = document.querySelectorAll('ul li a');
+
+        // Menambahkan event listener untuk setiap link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Menghapus kelas 'active' dari semua navbar (jika ada)
+                navLinks.forEach(link => link.classList.remove('after:w-full'));
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
