@@ -1,6 +1,6 @@
 <body>
     <header class="sticky top-0 z-40  bg-white/80 backdrop-blur">
-        <nav class="container mx-auto flex items-center justify-between py-4" aria-label="Navigasi utama">
+        <nav class="container mx-auto flex items-center justify-between py-4 px-4 sm:px-6 md:px-8 lg:px-18 max-w-full" aria-label="Navigasi utama">
             <!-- Logo & Tombol Burger (Mobile) -->
             <div class="flex items-center gap-3 justify-start">
                 <!-- Tombol Burger (Mobile) -->
