@@ -44,7 +44,7 @@
         };
     </script>
 </head>
-<body>
+<body id="beranda">
     @include('mainpage.section-page.header')
 
     @include('mainpage.section-page.hero-section')
