@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Umkm;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UmkmController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +14,8 @@ use App\Http\Controllers\UmkmController;
 //     return view('mainpage/index');
 // });
 
-Route::get('/', [UmkmController::class, 'homepage']);
+Route::get('/', [UmkmController::class, 'homepage'])->name('homepage');
+
 
 
 // Route resource untuk halaman user
@@ -22,9 +25,15 @@ Route::resource('umkm', UmkmController::class);
 //     ->name('direktori.umkm');
 Route::get('/umkm/{id}', [UmkmController::class, 'show'])->name('umkm.show');
 
-Route::get('/search', function() {
-    return view('mainpage.section-page.search-page');
-})->name('search');
+
+Route::get('/search', function () {
+    $umkms = Umkm::all(); // ambil semua UMKM
+    return view('mainpage.section-page.search-page', compact('umkms'));
+})->name('search'); // <--- beri nama route 'search'
+
+
+Route::get('/cari', [SearchController::class, 'index'])->name('cari');
+
 
 
 

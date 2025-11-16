@@ -32,7 +32,7 @@
 
             <!-- Menu Desktop -->
             <ul class="hidden items-center gap-6 md:flex">
-                <li><a href="#beranda"
+                <li><a href="{{ route('homepage') }}"
                         class="text-[#FF6A00] hover:text-[#FF6A00] font-semibold relative after:content-[''] after:block after:w-0 after:h-1 after:bg-[#FF6A00] after:transition-all after:duration-300 hover:after:w-full">Beranda</a>
                 </li>
                 <li><a href="#menu"
