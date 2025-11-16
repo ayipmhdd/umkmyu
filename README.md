@@ -1,36 +1,50 @@
-# UMKM Indramayu
+# [UMKM - YU]
 
 Proyek ini adalah aplikasi web yang bertujuan untuk mendukung pengelolaan dan promosi usaha mikro, kecil, dan menengah (UMKM) di Indramayu. Aplikasi ini menyediakan berbagai fitur untuk mempermudah UMKM dalam mengelola produk, transaksi, serta mempromosikan bisnis mereka secara online.
 
-## Tech Stack
+## ⚙️ Detail Teknis (Tech Stack)
 
-- **Frontend**: HTML, Tailwind CSS
-- **Backend**: PHP, Laravel
-- **Database**: MySQL
+Aplikasi ini dibangun menggunakan *framework* dan teknologi berikut (sesuai dengan yang diizinkan oleh panitia) :
 
-## Cara Menjalankan Proyek
+| Kategori | Teknologi/Framework yang Digunakan |
+| :--- | :--- |
+| **Backend** | Laravel |
+| **Frontend** | Tailwind CSS|
+| **Database** | MySQL |
 
-### 1. Clone repositori
+## 🚀 Instalasi dan Penggunaan
 
-Clone repositori proyek ini ke dalam komputer Anda:
+### Prasyarat
+* Composer
+* Git
+* PHP versi 8.2.x
 
-```bash
-git clone <https://github.com/ayipmhdd/umkmyu.git>
+### Langkah Instalasi (Contoh untuk Laravel/PHP)
+1.  Kloning repositori:
+    ```bash
+    git clone https://github.com/ayipmhdd/umkmyu.git
+    ```
+2.  Masuk ke direktori proyek dan instal dependensi PHP:
+    ```bash
+    cd umkmyu
+    composer install
+    ```
+3.  Konfigurasi environment:
+    ```bash
+    cp .env.example .env
+    # Sesuaikan konfigurasi database dan kredensial lainnya di file .env
+    ```
+4.  Jalankan migrasi database dan seed data:
+    ```bash
+    php artisan migrate --seed
+    ```
+5.  Jalankan server lokal:
+    ```bash
+    php artisan serve
+    ```
 
-Instal dependensi Laravel dengan menjalankan perintah berikut:
-composer install
+## 📊 Progress Saat Ini
 
-Salin file .env.example menjadi .env dengan perintah berikut:
-cp .env.example .env
-
-Generate Application Key
-php artisan key:generate
-
-Migrasi Database
-php artisan migrate
-
-Migrasi Storage
-php artisan storage:link
-
-Jalankan Aplikasi
-php artisan serve
+Aplikasi ini sudah mencakup beberapa fitur utama berikut:
+- **Landing Page**: Halaman depan aplikasi yang memberikan gambaran umum tentang UMKM yang terdaftar.
+- **Halaman Produk**: Menampilkan daftar produk yang dijual oleh UMKM, termasuk detail produk dan harga.
