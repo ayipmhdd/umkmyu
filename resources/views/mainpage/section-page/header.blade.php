@@ -1,6 +1,7 @@
 <body>
     <header class="sticky top-0 z-40  bg-white/80 backdrop-blur">
-        <nav class="container mx-auto flex items-center justify-between py-4 px-4 sm:px-6 md:px-8 lg:px-18 max-w-full" aria-label="Navigasi utama">
+        <nav class="container mx-auto flex items-center justify-between py-4 px-4 sm:px-6 md:px-8 lg:px-18 max-w-full"
+            aria-label="Navigasi utama">
             <!-- Logo & Tombol Burger (Mobile) -->
             <div class="flex items-center gap-3 justify-start">
                 <!-- Tombol Burger (Mobile) -->
@@ -8,8 +9,9 @@
                     class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300"
                     aria-expanded="false" aria-controls="mobileMenu" aria-label="Buka menu">
                     <!-- Tombol burger (garis tiga) -->
-                    <svg id="burgerIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg id="burgerIcon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <line x1="3" y1="12" x2="21" y2="12"></line>
                         <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -25,8 +27,8 @@
 
                 <!-- Logo UMKMYU -->
                 <a href="#beranda" class="flex items-center gap-3" aria-label="Beranda UMKMYU">
-                    <img src="{{ asset('assets/logo.png') }}" alt="Logo UMKMYU" class="h-9 w-auto"/>
-                    <img src="{{ asset('assets/tag-logo.png') }}" alt="Logo UMKMYU" class="h-9 w-auto"/>
+                    <img src="{{ asset('assets/logo.png') }}" alt="Logo UMKMYU" class="h-9 w-auto" />
+                    <img src="{{ asset('assets/tag-logo.png') }}" alt="Logo UMKMYU" class="h-9 w-auto" />
                 </a>
             </div>
 
@@ -46,8 +48,8 @@
 
             <!-- Tombol Search & Lokasi Saya (Desktop) -->
             <div class="hidden md:flex items-center gap-4">
-                <a href="{{ route('search') }}" 
-                class="inline-flex items-center justify-center rounded-full bg-[#EF4400] px-2 py-2 text-white shadow-sm hover:bg-[#d73c00] focus:outline-none focus:ring-2 focus:ring-[#EF4400] focus:ring-offset-2">
+                <a href="{{ route('search') }}"
+                    class="inline-flex items-center justify-center rounded-full bg-[#EF4400] px-2 py-2 text-white shadow-sm hover:bg-[#d73c00] focus:outline-none focus:ring-2 focus:ring-[#EF4400] focus:ring-offset-2">
                     <svg width="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                         stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -100,9 +102,12 @@
                         </button>
                         <div id="dropdownMenuMobile"
                             class="dropdown-content hidden bg-white shadow-lg rounded-md mt-2 w-full">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 3</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option
+                                1</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option
+                                2</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option
+                                3</a>
                         </div>
                     </li>
                 </ul>
@@ -111,14 +116,15 @@
 
 
         <!-- Tombol Search (Mobile, di luar menu) -->
-        <div
+        <a href="{{ route('search') }}"
             class="md:hidden inline-flex items-center justify-center rounded-full bg-[#EF4400] px-4 py-2 text-white shadow-sm hover:bg-[#d73c00] focus:outline-none focus:ring-2 focus:ring-[#EF4400] focus:ring-offset-2 absolute right-4 top-4 z-10">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="16" y1="16" x2="20" y2="20"></line>
             </svg>
-        </div>
+        </a>
+
 
     </header>
 
@@ -174,6 +180,5 @@
                 navLinks.forEach(link => link.classList.remove('after:w-full'));
             });
         });
-
     </script>
 </body>
