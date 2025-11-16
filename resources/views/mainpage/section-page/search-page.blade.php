@@ -69,10 +69,10 @@
         <div class="mb-8">
             <h2 class="text-[#EF4400] font-bold mb-3 text-lg sm:text-xl">PALING BANYAK DICARI</h2>
             <div class="flex flex-wrap gap-3 justify-center">
-                <button class="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#EF4400] hover:text-white transition">Lorem Ipsum</button>
-                <button class="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#EF4400] hover:text-white transition">Lorem Ipsum</button>
-                <button class="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#EF4400] hover:text-white transition">Lorem Ipsum</button>
-                <button class="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#EF4400] hover:text-white transition">Lorem Ipsum</button>
+                <button class="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#EF4400] hover:text-white transition">Makanan</button>
+                <button class="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#EF4400] hover:text-white transition">Minuman</button>
+                <button class="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#EF4400] hover:text-white transition">Jasa</button>
+                <button class="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#EF4400] hover:text-white transition">Lainnya</button>
             </div>
         </div>
 
